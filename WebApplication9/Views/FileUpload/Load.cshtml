@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Load";
+}
+
+<h2>View</h2>
+<div class="form-group">
+    <label asp-for="img_url" class="col-md-2 control-label">Upload</label>
+    <div class="col-md-10">
+            @ViewBag.Message
+    </div>
+    @Html.ActionLink("Back to Profile", "Create", "Profiles")
+</div>

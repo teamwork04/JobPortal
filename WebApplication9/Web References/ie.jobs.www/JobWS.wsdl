@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.jobs.ie/webservices/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.jobs.ie/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.jobs.ie/webservices/">
+      <s:element name="SearchJobs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employerIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobCategoryIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="regionIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="1" maxOccurs="1" name="excludeAgencies" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="industryIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="1" maxOccurs="1" name="jobType" type="tns:JobDuration" />
+            <s:element minOccurs="1" maxOccurs="1" name="jobHours" type="tns:JobHours" />
+            <s:element minOccurs="0" maxOccurs="1" name="keywords" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fromDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="toDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="startRecord" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="JobDuration">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="Permanent" />
+          <s:enumeration value="Contract" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="JobHours">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="FullTime" />
+          <s:enumeration value="PartTime" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SearchJobsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchJobsResult" type="tns:ArrayOfJobListItem" />
+            <s:element minOccurs="1" maxOccurs="1" name="recordCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfJobListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="JobListItem" type="tns:JobListItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JobListItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreatedDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmployerId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetJobDisplay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="jobId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobDisplayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetJobDisplayResult" type="tns:JobDisplay" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="JobDisplay">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmployerId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HtmlDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Payment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ModifiedDT" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreatedDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFullTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPartTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPermanent" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsContract" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasLogo" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomepageUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contact" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryNames" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegionNames" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryIds" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegionIds" type="tns:ArrayOfInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsContactHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCompanyNameHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsEmailHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPhoneHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFaxHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsAddressHidden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsHomePageHidden" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExpireJob">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="jobId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExpireJobResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireJobResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostJob">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="job" type="tns:Job" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Job">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Payment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HtmlDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFullTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPartTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPermanent" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsContract" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Question3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactEmails" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExpiryDT" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreatedDT" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ModifiedDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryIds" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegionIds" type="tns:ArrayOfInt" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PostJobResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PostJobResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateJob">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="job" type="tns:Job" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateJobResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="RefreshJob">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="jobId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefreshJobResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RefreshJobResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddApplication">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="application" type="tns:ApplicationData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ApplicationData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CoverNote" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Answer1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Answer2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Answer3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="JobId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVFileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVFileType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVFileData" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddApplicationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddApplicationResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobCategories">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetJobCategoriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobCategoriesResult" type="tns:ArrayOfJobCategory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfJobCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="JobCategory" type="tns:JobCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JobCategory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetIndustries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIndustriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIndustriesResult" type="tns:ArrayOfIndustry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfIndustry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Industry" type="tns:Industry" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Industry">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetJobRegions">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetJobRegionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobRegionsResult" type="tns:ArrayOfJobRegion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfJobRegion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="JobRegion" type="tns:JobRegion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JobRegion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCountries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCountriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountriesResult" type="tns:ArrayOfCountry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCountry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Country" type="tns:Country" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Country">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAddressRegions">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAddressRegionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAddressRegionsResult" type="tns:ArrayOfAddressRegion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAddressRegion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressRegion" type="tns:AddressRegion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressRegion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployerStats">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployerStatsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetEmployerStatsResult" type="tns:EmployerStats" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EmployerStats">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EmployerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveJobCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalJobCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveAdvertLimit" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSubscriptionEnabled" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchJobsSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchJobs" />
+  </wsdl:message>
+  <wsdl:message name="SearchJobsSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchJobsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobDisplaySoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobDisplay" />
+  </wsdl:message>
+  <wsdl:message name="GetJobDisplaySoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobDisplayResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJobSoapIn">
+    <wsdl:part name="parameters" element="tns:ExpireJob" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJobSoapOut">
+    <wsdl:part name="parameters" element="tns:ExpireJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostJobSoapIn">
+    <wsdl:part name="parameters" element="tns:PostJob" />
+  </wsdl:message>
+  <wsdl:message name="PostJobSoapOut">
+    <wsdl:part name="parameters" element="tns:PostJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateJobSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateJob" />
+  </wsdl:message>
+  <wsdl:message name="UpdateJobSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefreshJobSoapIn">
+    <wsdl:part name="parameters" element="tns:RefreshJob" />
+  </wsdl:message>
+  <wsdl:message name="RefreshJobSoapOut">
+    <wsdl:part name="parameters" element="tns:RefreshJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddApplicationSoapIn">
+    <wsdl:part name="parameters" element="tns:AddApplication" />
+  </wsdl:message>
+  <wsdl:message name="AddApplicationSoapOut">
+    <wsdl:part name="parameters" element="tns:AddApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobCategoriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobCategories" />
+  </wsdl:message>
+  <wsdl:message name="GetJobCategoriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIndustriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIndustries" />
+  </wsdl:message>
+  <wsdl:message name="GetIndustriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIndustriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobRegionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobRegions" />
+  </wsdl:message>
+  <wsdl:message name="GetJobRegionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobRegionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCountriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountries" />
+  </wsdl:message>
+  <wsdl:message name="GetCountriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAddressRegionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAddressRegions" />
+  </wsdl:message>
+  <wsdl:message name="GetAddressRegionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAddressRegionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployerStatsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployerStats" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployerStatsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployerStatsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="JobWSSoap">
+    <wsdl:operation name="SearchJobs">
+      <wsdl:input message="tns:SearchJobsSoapIn" />
+      <wsdl:output message="tns:SearchJobsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDisplay">
+      <wsdl:input message="tns:GetJobDisplaySoapIn" />
+      <wsdl:output message="tns:GetJobDisplaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJob">
+      <wsdl:input message="tns:ExpireJobSoapIn" />
+      <wsdl:output message="tns:ExpireJobSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostJob">
+      <wsdl:input message="tns:PostJobSoapIn" />
+      <wsdl:output message="tns:PostJobSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateJob">
+      <wsdl:input message="tns:UpdateJobSoapIn" />
+      <wsdl:output message="tns:UpdateJobSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshJob">
+      <wsdl:input message="tns:RefreshJobSoapIn" />
+      <wsdl:output message="tns:RefreshJobSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddApplication">
+      <wsdl:input message="tns:AddApplicationSoapIn" />
+      <wsdl:output message="tns:AddApplicationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobCategories">
+      <wsdl:input message="tns:GetJobCategoriesSoapIn" />
+      <wsdl:output message="tns:GetJobCategoriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIndustries">
+      <wsdl:input message="tns:GetIndustriesSoapIn" />
+      <wsdl:output message="tns:GetIndustriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobRegions">
+      <wsdl:input message="tns:GetJobRegionsSoapIn" />
+      <wsdl:output message="tns:GetJobRegionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <wsdl:input message="tns:GetCountriesSoapIn" />
+      <wsdl:output message="tns:GetCountriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressRegions">
+      <wsdl:input message="tns:GetAddressRegionsSoapIn" />
+      <wsdl:output message="tns:GetAddressRegionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployerStats">
+      <wsdl:input message="tns:GetEmployerStatsSoapIn" />
+      <wsdl:output message="tns:GetEmployerStatsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JobWSSoap" type="tns:JobWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchJobs">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/SearchJobs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDisplay">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetJobDisplay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJob">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/ExpireJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostJob">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/PostJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateJob">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/UpdateJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshJob">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/RefreshJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddApplication">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/AddApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobCategories">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetJobCategories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIndustries">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetIndustries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobRegions">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetJobRegions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetCountries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressRegions">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetAddressRegions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployerStats">
+      <soap:operation soapAction="http://www.jobs.ie/webservices/GetEmployerStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="JobWSSoap12" type="tns:JobWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchJobs">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/SearchJobs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDisplay">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetJobDisplay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJob">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/ExpireJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostJob">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/PostJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateJob">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/UpdateJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshJob">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/RefreshJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddApplication">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/AddApplication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobCategories">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetJobCategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIndustries">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetIndustries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobRegions">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetJobRegions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetCountries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressRegions">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetAddressRegions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployerStats">
+      <soap12:operation soapAction="http://www.jobs.ie/webservices/GetEmployerStats" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JobWS">
+    <wsdl:port name="JobWSSoap" binding="tns:JobWSSoap">
+      <soap:address location="http://www.jobs.ie/JobWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="JobWSSoap12" binding="tns:JobWSSoap12">
+      <soap12:address location="http://www.jobs.ie/JobWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

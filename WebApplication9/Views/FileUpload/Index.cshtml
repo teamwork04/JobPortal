@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+<div class="form-group">
+    <label asp-for="img_url" class="col-md-2 control-label">Upload</label>
+    <div class="col-md-10">
+        @using (Html.BeginForm("Load",
+                                        "Hello",
+                                        FormMethod.Post,
+                                        new { enctype = "multipart/form-data" }))
+        {
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" /><br><br>
+            <input type="submit" value="Upload Image" />
+                    <br><br>
+                    @ViewBag.Message
+        }
+    </div>
+</div>
+
